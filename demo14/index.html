@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+      /*组件名首字母大写驼峰命名*/
+      var CalHeader = React.createClass({
+
+        render:function(){
+          return <h1>{this.props.name}</h1>;
+        }
+
+      });
+
+      var CalBody = React.createClass({
+
+        render:function(){
+          return <h1>{this.props.name}</h1>;
+        }
+      });
+
+      var CalController = React.createClass({
+
+        getInitialState:function(){
+          return {
+            headerName:this.props.headerName,
+            bodyName:this.props.bodyName,
+            link:false
+          }
+        },
+
+        handleClick: function(event) {
+            var isclick = !this.state.link;
+            var headerName = isclick?"goodbye":"hello";
+            var bodyName = isclick?"yl":"lc";
+
+            this.setState({
+              headerName:headerName,
+              bodyName:bodyName,
+              link:isclick
+            });
+
+        },
+
+        render:function(){
+          console.log(this.state.headerName);
+          console.log(this.state.bodyName);
+
+          return (
+              <div onClick={this.handleClick}>
+                <CalHeader name={this.state.headerName}/>
+                <CalBody name={this.state.bodyName}/>
+              </div>
+            )
+        }
+      });
+
+      ReactDOM.render(
+        <CalController headerName="hello" bodyName="lc"/>,
+        document.getElementById('example')
+      );
+    </script>
+  </body>
+</html>
